@@ -32,4 +32,4 @@ def on_error(instance, exception):
 
 logging.basicConfig(format='[%(levelname)s:%(name)s] %(asctime)s - %(message)s', level=logging.DEBUG)
 
-certstream.listen_for_events(message_callback=print_callback, on_open=on_open, on_error=on_error, url='wss://certstream.calidog.io/')
+certstream.listen_for_events(message_callback=print_callback, on_open=on_open, on_error=on_error, url='ws://localhost:4000/')
