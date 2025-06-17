@@ -1,0 +1,53 @@
+#####################
+Run Certstream server
+#####################
+
+############## Windows run
+1 : Install elixir 1.18 / OTP 27 (edit PATH accordingly)
+2 : in mix.exs : replace easy_ssl dependancy with {:easy_ssl, github: "CaliDog/EasySSL", branch: "master"}
+3 : in mix.exs : add {:ssl_verify_fun, "~> 1.1.7", manager: :rebar3, override: true} to dependancies
+4 : in config.exs : in :honeybadger, add api_key: "S3CR3T"
+5 : create the file config/runtime.exs
+6 : in runtime.exc :
+import Config
+
+config :hackney, ssl_options: [cacertfile: :certifi.cacertfile()]
+7 : mix deps.get
+8 : mix run --no-halt
+
+############## Ubuntu run
+1 :
+curl -fsSO https://elixir-lang.org/install.sh
+sh install.sh elixir@1.18.4 otp@27.3.4
+installs_dir=$HOME/.elixir-install/installs
+export PATH=$installs_dir/otp/27.3.4/bin:$PATH
+export PATH=$installs_dir/elixir/1.18.4-otp-27/bin:$PATH
+iex
+# Checkpoint : should have a elixir cli
+2 : in mix.exs : replace easy_ssl dependancy with {:easy_ssl, github: "CaliDog/EasySSL", branch: "master"}
+3 : in mix.exs : add {:ssl_verify_fun, "~> 1.1.7", manager: :rebar3, override: true} to dependancies
+4 : in config.exs : in :honeybadger, add api_key: "S3CR3T"
+5 : mix deps.get
+If a problem occurs with Instruments.FastCounter > 
+iex> :erlang.system_info(:schedulers)
+It returns an integer. Check that this integer is < to @max_tables in fast_counter.ex. If not, increase @max_tables
+If problem persists, mute all references to Instrument ("use Instrument" instructions + all calls)
+6 : mix run --no-halt
+
+
+#################
+Modifications
+#################
+BaseClient : 
+- I changed the name to BaseApiClient as it reflects better my idea of the concept
+- I added "endpoint" parameter to the http_request method to allow child classes to be more versatile
+- Changed the name http_request to endpoint_request as it reflects better my idea of the concept
+
+Logger : 
+- I changed the prototype of the alert method to decorelate the format behaviour and the logging behaviour
+
+
+##################
+To go further
+##################
+
