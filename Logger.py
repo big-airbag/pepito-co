@@ -4,7 +4,7 @@ LOGFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "suspicious_d
 
 class Logger(object):
     def __init__(self, print_logs: bool = False):
-        self._print_logs = print_logs
+        self.print_logs = print_logs
 
     @property
     def print_logs(self) -> bool:
@@ -17,7 +17,7 @@ class Logger(object):
         self._print_logs = value
 
     def _format(self, severity:int, domains:list[str], issuer:str):
-        if severity > 200:
+        if severity >= 200:
             criticity = "[HIGH]"
         elif severity > 100:
             criticity = "[MEDIUM]"

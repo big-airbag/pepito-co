@@ -1,3 +1,7 @@
+#####################
+Run Certstream server
+#####################
+
 ############## Windows run
 1 : Install elixir 1.18 / OTP 27 (edit PATH accordingly)
 2 : in mix.exs : replace easy_ssl dependancy with {:easy_ssl, github: "CaliDog/EasySSL", branch: "master"}
@@ -29,3 +33,22 @@ iex> :erlang.system_info(:schedulers)
 It returns an integer. Check that this integer is < to @max_tables in fast_counter.ex. If not, increase @max_tables
 If problem persists, mute all references to Instrument ("use Instrument" instructions + all calls)
 6 : mix run --no-halt
+
+
+#################
+Modifications
+#################
+BaseClient : 
+- I changed the name to BaseApiClient as it reflects better my idea of the concept
+- I added "endpoint" parameter to the http_request method to allow child classes to be more versatile
+- Changed the name http_request to endpoint_request as it reflects better my idea of the concept
+
+
+
+##################
+To go further
+##################
+
+- AbuseIPDBClient and BaseClient could be reworked. To have a full API endpoint URL in base url seems strange to me.
+I would rather have API base url in base_url and then have a function per endpoint (and something like final_url = base_url + endpoint)
+
