@@ -43,12 +43,11 @@ BaseClient :
 - I added "endpoint" parameter to the http_request method to allow child classes to be more versatile
 - Changed the name http_request to endpoint_request as it reflects better my idea of the concept
 
+Logger : 
+- I changed the prototype of the alert method to decorelate the format behaviour and the logging behaviour
 
 
 ##################
 To go further
 ##################
-
-- AbuseIPDBClient and BaseClient could be reworked. To have a full API endpoint URL in base url seems strange to me.
-I would rather have API base url in base_url and then have a function per endpoint (and something like final_url = base_url + endpoint)
 

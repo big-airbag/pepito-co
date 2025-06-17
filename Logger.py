@@ -19,11 +19,11 @@ class Logger(object):
     def _format(self, severity:int, domains:list[str], issuer:str):
         if severity >= 200:
             criticity = "[HIGH]"
-        elif severity > 100:
+        elif severity >= 150:
             criticity = "[MEDIUM]"
         else:
             criticity = "[LOW]"
-        return "{} - {} - {}".format(criticity, ",".join(domains), issuer)
+        return "{} {} {}".format(criticity, ",".join(domains), issuer)
 
 
     # def alert(self, message: str):

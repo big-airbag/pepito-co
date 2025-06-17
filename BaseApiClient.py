@@ -15,7 +15,6 @@ class BaseApiClient(object):
 
     @base_url.setter
     def base_url(self, value: str):
-        print(value)
         assert validators.url(value), "BaseClient base_url attribute is malformed."
         self._base_url = value
 
