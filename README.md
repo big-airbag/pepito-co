@@ -5,7 +5,8 @@ This repository holds source code for a technical challenge.
 This tool is tested in Python3.12 and python3.13.
 
 ## :heavy_plus_sign: Requirements
-A functional [Certstream Server](https://github.com/CaliDog/certstream-server). Its websocket URL will be used in the config file (see below).
+- A functional [Certstream Server](https://github.com/CaliDog/certstream-server). Its websocket URL will be used in the config file (see below).
+- sqlite3
 
 ## :wrench: Initialization
 - Install python requirements :
