@@ -47,6 +47,11 @@ BaseClient :
 Logger : 
 - I changed the prototype of the alert method to decorelate the format behaviour and the logging behaviour
 
+Testing : 
+- To test quickly and not wait a real case of typosquatting, I added a debug option on the main program.
+It allows us to increase the threshold value in distance between domain computing and thus, a lot more (too much in fact)
+domains are considered similar.
+
 
 ##################
 To go further
@@ -54,4 +59,6 @@ To go further
 As I work with Elastic, if I have to use this tool, I would ingest logs in my Elastic to :
 - first check that my tool and certstream-server are working correctly
 - secondly easily add some alerting in case of a real critical alert (via Elastic "Rules")
-Sadly I can't test this quickly as I would need to setup a new Elastic instance.
+
+The database approach :
+- The table schema can be better but for this example I think it's okay. It depends on where we want to go next.

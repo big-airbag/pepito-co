@@ -1,11 +1,19 @@
 import requests
 import validators
 
-# TODO: Typing
 
+class BaseApiClient:
+    """
+    A Base Api Client
+    """
 
-class BaseApiClient(object):
-    def __init__(self, base_url, headers=None):
+    def __init__(self, base_url: str, headers: dict | None = None):
+        """Initialize the client with given base_url and headers
+
+        Args:
+            base_url (str): The base URL of the API
+            headers (dict | None, optional): Some headers. Defaults to None.
+        """
         self.base_url = base_url
         self.headers = headers
 
@@ -20,21 +28,38 @@ class BaseApiClient(object):
         self._base_url = value
 
     @property
-    def headers(self):
+    def headers(self) -> dict:
         return self._headers
 
     @headers.setter
-    def headers(self, value):
+    def headers(self, value: dict | None = None):
         if not isinstance(value, dict) and value is not None:
             raise TypeError("Headers must be a dict or None")
         self._headers = value or {}
 
-    def endpoint_request(self, endpoint: str, method: str, json_body=None, headers=None, params=None, verify_ssl=False):
-        # TODO: rewrite
-        if headers is not None:
-            headers = headers | self._headers
-        else:
-            headers = self._headers
+    def endpoint_request(
+        self,
+        endpoint: str,
+        method: str,
+        json_body: dict | None = None,
+        headers: dict | None = None,
+        params: dict | None = None,
+        verify_ssl: bool = False,
+    ) -> requests.Response:
+        """Request an API endpoint
+
+        Args:
+            endpoint (str): API endpoint
+            method (str): HTTP method
+            json_body (dict | None, optional): JSON payload. Defaults to None.
+            headers (dict | None, optional): Headers. Defaults to None.
+            params (dict | None, optional): Query parameters. Defaults to None.
+            verify_ssl (bool, optional): SSL verification. Defaults to False.
+
+        Returns:
+            requests.Response: HTTP Response
+        """
+        headers = headers | self._headers if headers is not None else self._headers
 
         response = requests.request(
             method=method,

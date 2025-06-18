@@ -3,6 +3,7 @@ from unittest.mock import patch
 import pytest
 from AbuseIPDBClient import AbuseIPDBClient
 
+
 def test_create_AbuseIPDBClient():
     aipc = AbuseIPDBClient("mykey")
     assert aipc.base_url == "https://api.abuseipdb.com/api/v2"
@@ -44,5 +45,3 @@ def test_check_reputation_AbuseIPDBClient():
         mock_request.return_value.status_code = 403
         with pytest.raises(Exception):
             aipc.check_reputation(ip="45.134.26.79")
-
-        

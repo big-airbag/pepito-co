@@ -17,6 +17,7 @@ else:
     config["DEFAULT"]["Base_Distance_Keyword"] = "REPLACE_ME"
     config["DEFAULT"]["Distance_Threshold"] = "3"
     config["DEFAULT"]["DB_Filepath"] = "REPLACE_ME"
+    config["DEFAULT"]["certstream_websocket"] = "REPLACE_ME"
     with open("config.ini", "w") as configfile:
         config.write(configfile)
     print("No config file found, created one. Please input your config")
@@ -26,6 +27,7 @@ ABUSEIPDB_API_KEY = config["DEFAULT"]["AbuseIPDB_API_Key"]
 BASE_DISTANCE_KEYWORD = config["DEFAULT"]["Base_Distance_Keyword"]
 DISTANCE_THRESHOLD = int(config["DEFAULT"]["Distance_Threshold"])
 DB_FILEPATH = config["DEFAULT"]["DB_Filepath"]
+CERTSTREAM_WEBSOCKET = config["DEFAULT"]["certstream_websocket"]
 
 
 def on_open():
@@ -75,7 +77,7 @@ def main(args: argparse.Namespace):
     aipdb_client = AbuseIPDBClient(api_key=ABUSEIPDB_API_KEY)
     logger = Logger(print_logs=args.print_logs, db_file=DB_FILEPATH)
 
-    certstream.listen_for_events(my_callback, on_open=on_open, url="ws://localhost:4000/")
+    certstream.listen_for_events(my_callback, on_open=on_open, url=CERTSTREAM_WEBSOCKET)
 
 
 if __name__ == "__main__":
