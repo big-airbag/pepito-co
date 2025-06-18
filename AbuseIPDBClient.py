@@ -7,7 +7,17 @@ import requests
 class AbuseIPDBClient(BaseApiClient):
     def __init__(self, api_key: str):
         super().__init__(base_url="https://api.abuseipdb.com/api/v2", headers={"Key": api_key})
-        self._api_key = api_key
+        self.api_key = api_key
+
+    @property
+    def api_key(self) ->str:
+        return self._api_key
+    
+    @api_key.setter
+    def api_key(self, value:str):
+        assert type(value) == str, "api_key must be a str"
+        self._api_key = value
+
 
     # TODO: typing
     def check_reputation(self, ip: str | None = None, domain: str | None = None):

@@ -12,8 +12,9 @@ Run Certstream server
 import Config
 
 config :hackney, ssl_options: [cacertfile: :certifi.cacertfile()]
-7 : mix deps.get
-8 : mix run --no-halt
+7: in ct_watcher.ex, patch the default http options :   @default_http_options [timeout: 10_000, recv_timeout: 10_000, ssl: [{:versions, [:'tlsv1.2']},{:verify, :verify_peer},{:cacerts, :certifi.cacerts()}], follow_redirect: true]
+8 : mix deps.get
+9 : mix run --no-halt
 
 ############## Ubuntu run
 1 :
@@ -50,4 +51,7 @@ Logger :
 ##################
 To go further
 ##################
-
+As I work with Elastic, if I have to use this tool, I would ingest logs in my Elastic to :
+- first check that my tool and certstream-server are working correctly
+- secondly easily add some alerting in case of a real critical alert (via Elastic "Rules")
+Sadly I can't test this quickly as I would need to setup a new Elastic instance.
