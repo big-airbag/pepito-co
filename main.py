@@ -69,13 +69,18 @@ def main(args: argparse.Namespace):
                     # 4 : Logging
                     if global_score > 100:
                         logger.alert(severity=global_score, domains=domains, issuer=issuer["aggregated"])
-                        logger.alert_db(severity=global_score, domains=domains, issuer=issuer["aggregated"])
+                        if args.to_db:
+                            logger.alert_db(severity=global_score, domains=domains, issuer=issuer["aggregated"])
                         # Break to test the next certificate without duplicating
                         # alerts for other domains in this one
                         break
 
     aipdb_client = AbuseIPDBClient(api_key=ABUSEIPDB_API_KEY)
-    logger = Logger(print_logs=args.print_logs, db_file=DB_FILEPATH)
+
+    # Avoid to create an empty file if there is a path in the config
+    # but the option to-db is not used
+    db_filepath = DB_FILEPATH if args.to_db else None
+    logger = Logger(print_logs=args.print_logs, db_file=db_filepath)
 
     certstream.listen_for_events(my_callback, on_open=on_open, url=CERTSTREAM_WEBSOCKET)
 
@@ -86,6 +91,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--debug", action="store_true", help="Debug mode, increase tolerance in search for similar URLs"
     )
+    parser.add_argument("--to-db",action="store_true", help="Log alerts to a db file")
     args = parser.parse_args()
 
     if args.debug:
