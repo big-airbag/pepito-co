@@ -7,6 +7,7 @@ from Levenshtein import distance
 import configparser
 import os
 
+# Global config
 config = configparser.ConfigParser()
 config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.ini")
 if os.path.isfile(config_file_path):
@@ -23,6 +24,7 @@ else:
     print("No config file found, created one. Please input your config")
     sys.exit()
 
+# Global variables
 ABUSEIPDB_API_KEY = config["DEFAULT"]["AbuseIPDB_API_Key"]
 BASE_DISTANCE_KEYWORD = config["DEFAULT"]["Base_Distance_Keyword"]
 DISTANCE_THRESHOLD = int(config["DEFAULT"]["Distance_Threshold"])
@@ -77,7 +79,7 @@ def main(args: argparse.Namespace):
 
     aipdb_client = AbuseIPDBClient(api_key=ABUSEIPDB_API_KEY)
 
-    # Avoid to create an empty file if there is a path in the config
+    # Avoid to create an empty file if there is a path in the config file
     # but the option to-db is not used
     db_filepath = DB_FILEPATH if args.to_db else None
     logger = Logger(print_logs=args.print_logs, db_file=db_filepath)
@@ -91,7 +93,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--debug", action="store_true", help="Debug mode, increase tolerance in search for similar URLs"
     )
-    parser.add_argument("--to-db",action="store_true", help="Log alerts to a db file")
+    parser.add_argument("--to-db", action="store_true", help="Log alerts to a db file")
     args = parser.parse_args()
 
     if args.debug:

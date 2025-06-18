@@ -1,4 +1,3 @@
-from unittest.mock import patch
 from BaseApiClient import BaseApiClient
 import pytest
 
